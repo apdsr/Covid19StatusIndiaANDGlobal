@@ -64,6 +64,110 @@ h2 {
 }
 
 
+/* global  data page  */
+
+#map {
+    width: 100%;
+    height: 520px;
+}
+
+.badgedesgn1 {
+    background-color: rgb(230, 46, 0);
+    color: rgb(230, 46, 0);
+}
+
+.badgedesgn2 {
+    background-color: rgb(255, 117, 26);
+    color: rgb(255, 117, 26);
+}
+
+.badgedesgn3 {
+    background-color: rgb(0, 51, 204);
+    color: rgb(0, 51, 204);
+}
+
+.card {
+    align-items: center;
+    text-align: center;
+}
+
+.card-body i {
+    font-size: 40px;
+    font-weight: bold;
+    color: #34495e;
+}
+
+.srch input {
+    border: 2px solid black;
+    color: darkcyan;
+}
+
+#searchTxt {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+
+/* search bar */
+
+.srchinput {
+    text-align: center;
+}
+
+.autocomplete {
+    /*the container must be positioned relative:*/
+    position: relative;
+    display: inline-block;
+}
+
+input::placeholder {
+    color: chocolate;
+}
+
+input {
+    border: 1px solid transparent;
+    background-color: white;
+    color: chocolate;
+    padding: 10px;
+    font-size: 16px;
+}
+
+input[type=text] {
+    background-color: black;
+    width: 100%;
+}
+
+.autocomplete-items {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    /*position the autocomplete items to be the same width as the container:*/
+    top: 100%;
+    left: 0;
+    right: 0;
+}
+
+.autocomplete-items div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: khaki;
+    border-bottom: 1px solid peru;
+}
+
+.autocomplete-items div:hover {
+    /*when hovering an item:*/
+    background-color: saddlebrown;
+}
+
+.autocomplete-active {
+    /*when navigating through the items using the arrow keys:*/
+    background-color: DodgerBlue !important;
+    color: #ffffff;
+}
+
+
 /* media */
 
 @media (max-width: 400px) {
@@ -78,5 +182,17 @@ h2 {
 @media (max-width: 770px) {
     #footer {
         text-align: center;
+    }
+}
+
+
+/* media for gloabal page */
+
+@media (max-width: 400px) {
+    h4 {
+        font-size: 17px;
+    }
+    #map {
+        height: 320px;
     }
 }

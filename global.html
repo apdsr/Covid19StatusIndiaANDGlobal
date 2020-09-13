@@ -9,17 +9,145 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="index1.css">
     <title>Covid19 Global Status</title>
 </head>
 
 <body>
-    <h1>Map</h1>
     <div class="container-fluid">
+        <h3 class="text-center mt-2">Map of World Cases</h3>
+        <div class="row mt-3 mb-3">
+            <div class="col-lg-4">
+                <h4><span class="badge badgedesgn1 mr-2">Markar</span>Cases Greater Than 500K</h4>
+            </div>
+            <div class="col-lg-4">
+                <h4><span class="badge badgedesgn2 mr-2">Markar</span>Cases Greater Than 50K</h4>
+            </div>
+            <div class="col-lg-4">
+                <h4><span class="badge badgedesgn3 mr-2">Markar</span>Cases Less Than 50K</h4>
+            </div>
+        </div>
+        <div id='map'></div>
+    </div>
+    <div class="container-fluid mt-4 mb-3">
+        <div class="row">
+            <div class="col">
+                <h3 class="text-center">World Total Details Information</h3>
+            </div>
+        </div>
+        <div class="row mb-3 mt-2">
+            <div class="col-md-8">
+                <div class="card-deck mb-2">
+                    <div class="card bg-info">
+                        <div class="card-body">
+                            <i class="fa fa-th-list"></i>
+                            <h5 class="card-title">Cases</h5>
+                            <strong><p class="card-text" id="cofirmedCases"></p></strong>
+                            <h6 class="card-title">Today Cases</h6>
+                            <strong><p class="card-text" id="todaycofirmedCases"></p></strong>
+                            <h6 class="card-title">Cases Per Million</h6>
+                            <strong> <p class="card-text" id="CasesPerMilion"></p></strong>
+                        </div>
+                    </div>
+                    <div class="card bg-warning">
+                        <div class="card-body">
+                            <i class="fa fa-tachometer"></i>
+                            <h5 class="card-title">Active</h5>
+                            <strong> <p class="card-text" id="activecases"></p></strong>
+                            <h6 class="card-title">Active Per Million</h6>
+                            <strong><p class="card-text" id="activepermln"></p></strong>
+                        </div>
+                    </div>
+                    <div class="card bg-danger">
+                        <div class="card-body">
+                            <i class="fa fa-times"></i>
+                            <h5 class="card-title">Death</h5>
+                            <strong><p class="card-text" id="totalDeath"></p></strong>
+                            <h6 class="card-title">Today Death</h6>
+                            <strong> <p class="card-text" id="todayDeath"></p></strong>
+                            <h6 class="card-title">Death Per Million</h6>
+                            <strong> <p class="card-text" id="DeathPermln"></p></strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-deck">
+                    <div class="card bg-success">
+                        <div class="card-body">
+                            <i class="fa fa-check-square"></i>
+                            <h5 class="card-title">Recovered</h5>
+                            <Strong> <p class="card-text" id="totalrecoverd"></p></Strong>
+                            <h6 class="card-title">Today Recovered</h6>
+                            <strong><p class="card-text" id="todayrecoverd"></p></strong>
+                            <h6 class="card-title">Recovered Per Million</h6>
+                            <strong> <p class="card-text" id="recoverdPerMilln"></p></strong>
+                        </div>
+                    </div>
+                    <div class="card bg-secondary">
+                        <div class="card-body">
+                            <i class="fa fa-times-circle"></i>
+                            <h5 class="card-title">Critical</h5>
+                            <strong><p class="card-text" id="criticalTotal"></p></strong>
+                            <h6 class="card-title">Critical Per Million</h6>
+                            <strong><p class="card-text" id="cricticalpermln"></p></strong>
+                        </div>
+                    </div>
+                    <div class="card bg-primary">
+                        <div class="card-body">
+                            <i class="fa fa-eye"></i>
+                            <h5 class="card-title">Test</h5>
+                            <strong><p class="card-text" id="Totaltest"></p></strong>
+                            <h6 class="card-title">Test Per Million</h6>
+                            <strong><p class="card-text" id="testpermln"></p></strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <canvas class="p-2" id="Total_Global_case_piechart" width="250" height="280" style="border:2px solid #770e0e;">
+                </canvas>
+            </div>
 
-        <div id='map' style='width:1200px; height:480px;'></div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <h3 class="text-center">Search By Country Name</h3>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <form class="srchinput" autocomplete="off">
+                    <div class="autocomplete" style="width:300px;">
+                        <input id="myInput" type="text" name="myCountry" placeholder="Type country name">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="card d-flex mx-auto mb-3 bg-info" style="width: 18rem;">
+                    <img id="imageFlag" src="" class="card-img-top" alt="">
+                    <div class="card-body">
+                        <h2 class="card-title" id="titleCountry"></h2>
+                        <strong><h4 class="card-title text-white">Total Cases</h4></strong>
+                        <Strong><p class="card-text" id="ttlcase"></p></Strong>
+                        <strong><h4 class="card-title text-white">Active</h4></strong>
+                        <Strong><p class="card-text" id="ttlactive"></p></Strong>
+                        <strong><h4 class="card-title text-white">Recovered</h4></strong>
+                        <Strong><p class="card-text" id="ttlrecvrd"></p></Strong>
+                        <strong><h4 class="card-title text-white">Critical</h4></strong>
+                        <Strong><p class="card-text" id="ttlcritical"></p></Strong>
+                        <strong><h4 class="card-title text-white">Death</h4></strong>
+                        <Strong><p class="card-text" id="ttldeath"></p></Strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
     </div>
-
 
 
     <!-- Optional JavaScript -->
@@ -32,13 +160,14 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
     <script>
         mapboxgl.accessToken = 'pk.eyJ1IjoiYXBkbWFwIiwiYSI6ImNrZXdmNDhpdTBmMWgyeWpwZmZ5dnoyODMifQ.pyvSU_43YMqljO5-JHjR1g';
         var map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/mapbox/dark-v10',
-            zoom: 2,
-            center: [0, 20]
+            zoom: 3,
+            center: [50, 20]
         });
     </script>
 
